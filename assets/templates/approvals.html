@@ -1,0 +1,82 @@
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Search Assets</title>
+    <meta name='viewport' content = 'width=device-width',initial-scale=1>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'navigation.css' %}">
+    
+    
+    
+</head>
+<body>
+<h1>Approval System</h1>
+<br>
+<ul>
+    
+    <li><a href="{% url 'home_view' %}">Home </a> <br/><br/></li>
+    {% if user.is_superuser %}    
+    <li><a href="{% url 'search_view' %}">Search </a> <br/><br/></li>
+    <li><a href="{% url 'approvals_view' %}"> Approval System</a> <br/></li>
+    {% endif %}
+    <li><a href="{% url 'add_assets_view' %}"> Add Asssets</a> <br/></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'logout_view' %}" style="float: right;">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'login_view' %}" style="float: right;">Login</a></li>
+    {% endif%}
+</ul>
+
+<br/>
+<div>
+<table id="customers">
+    
+    <tr class="row100 body">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Designation</th>
+        <th>Location</th>
+        <th>Asset</th>
+        <th>Asset Serial No</th>
+        <th>Issued Date</th>
+        <th>Access Type</th>
+        <th>Manager</th>
+        <th>Approve</th>
+    </tr>
+    {% if results %}  
+{% for item in results %}
+
+    <tr class="row100 body"> 
+        <td>{{ item.fname }}</td>
+        <td>{{ item.lname }}</td>
+        <td>{{ item.designation }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{item.assets}}</td>
+        <td>{{item.asset_serialno}}</td>
+        <td>{{item.issuedate}}</td>
+        <td>{{item.accesstype}}</td>
+        <td>{{item.manager}}</td>
+        <td><a href='/assets/approved_view/?id={{ item.id }}'>Approve  || <a id="myBtn" href="/assets/rejected_view/?id={{ item.id }}">Reject </a> </td>
+    </tr>
+
+{% endfor %}
+</table>
+
+{% elif message  %}
+
+    <script>
+        alert('{{ message }}');
+    </script>
+    
+{% else %}
+    <p>No records</p>
+{% endif %}
+
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Search Assets</title>
+    <meta name='viewport' content = 'width=device-width',initial-scale=1>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'navigation.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+   
+    
+</head>
+<body>
+<h1>Search Assets</h1>
+
+<br/>
+<div>
+<ul>
+    
+    <li><a href="{% url 'home_view' %}">Home </a> <br/><br/></li>
+    {% if user.is_superuser %}    
+    <li><a href="{% url 'search_view' %}">Search </a> <br/><br/></li>
+    <li><a href="{% url 'approvals_view' %}"> Approval System</a> <br/></li>
+    {% endif %}
+    <li><a href="{% url 'add_assets_view' %}"> Add Asssets</a> <br/></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'logout_view' %}" style="float: right;">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'login_view' %}" style="float: right;">Login</a></li>
+    {% endif%}
+</ul>
+</div>
+
+<div class="boxes">
+    <div class = "middlebox">
+        <section class="webdesigntuts-workshop">
+            <form action="{% url 'search_view' %}" method="GET" value="{{request.GET.q}}">
+                Search <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search posts" />
+                <input type="submit" name="submit" value="Search"/>
+            <br><br>
+            </form> 
+        </section>
+    </div>
+    <div id = "middlebox"> 
+   
+</div> 
+
+    <div class="rightbox">
+        <table id="inventory">
+            <tr class="row100 body"></tr>
+                <th colspan="2" width="50%">Total Inventory</th>
+            </tr>
+            <tr class="row100 body">
+                <td>Laptops</td>
+                {% if laptops %}
+                    <td>{{ laptops }}</td>
+                {% endif %}
+            </tr>
+            <tr class="row100 body">
+                <td>Desktops</td>
+                <td>{{ desktops }}</td>
+            </tr>
+        </table>
+        
+    </div>
+</div>
+<br/>
+    <!-- {{ submitbutton }} -->
+    <div align="right">
+    {% if request.GET.q != '' %}
+    <p><b>Search Results for {{request.GET.q}} :: {{ count }}</b></p>
+    
+    {% else %}
+    <p><b>Search Results for all records :: {{ count }}</b></p>
+   
+    {% endif %}
+    </div>
+
+    <!-- {{ results }} -->
+   
+{% if submitbutton == 'Search'  %}
+
+<div>
+<table id="customers">
+    
+    <tr class="row100 body">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Designation</th>
+        <th>Location</th>
+        <th>Asset</th>
+        <th>Asset Serial No</th>
+        <th>Issued Date</th>
+        <th>Access Type</th>
+        <th>Manager</th>
+    </tr>
+{% if results %}
+{% for item in results %}
+    <tr class="row100 body"> 
+        <td>{{ item.fname }}</td>
+        <td>{{ item.lname }}</td>
+        <td>{{ item.designation }}</td>
+        <td>{{ item.location }}</td>
+        <td>{{item.assets}}</td>
+        <td>{{item.asset_serialno}}</td>
+        <td>{{item.issuedate}}</td>
+        <td>{{item.accesstype}}</td>
+        <td>{{item.manager}}</td>
+    </tr>
+
+
+{% endfor %}
+
+
+{% else %}
+<tr class="row100 body"> 
+    
+    <td>No search results for this query</td>
+</tr>
+</table>
+{% endif %}
+{% endif %}
+
+</div>
+
+</body>
+</html>

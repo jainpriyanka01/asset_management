@@ -1,0 +1,136 @@
+{% load static %}
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Add Assets</title>
+    <meta name='viewport' content = 'width=device-width',initial-scale=1>
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'navigation.css' %}">
+    
+</head>
+<body>
+<div>
+<h1>Dashboard</h1>
+</div>    
+<br/>
+
+{% if username %}
+
+
+<td>Welcome, {{ username}}</td><br/>
+
+<ul>
+    
+    <li><a href="{% url 'home_view' %}">Home </a> <br/><br/></li>
+    {% if user.is_superuser %}    
+        <li><a href="{% url 'search_view' %}">Search </a> <br/><br/></li>
+        <li><a href="{% url 'approvals_view' %}"> Approval System</a> <br/></li>
+    {% endif %}
+
+    <li><a href="{% url 'add_assets_view' %}"> Add Asssets</a> <br/></li>
+    
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'logout_view' %}" style="float: right;">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'login_view' %}" style="float: right; ">Login</a></li>
+    {% endif%}
+</ul>
+{% if results %}
+
+
+
+<div class="divclass">
+{% for item in results %}
+
+<table align="center" id="customers1" >
+      
+    
+    <th colspan="2">User Details</th>
+    <tr class="row100 body">
+        <td>First Name</td>
+        <td>{{ item.fname }}</td>
+        
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>{{ item.lname }}</td>
+    </tr>
+    <tr>
+        <td>Designation</td>
+        <td>{{ item.designation }}</td>
+    </tr>
+    <tr>
+        <td>Location</td>
+        <td>{{ item.location }}</td>
+    </tr>
+    <tr>
+        <td>Asset</td>
+        <td>{{ item.assets }}</td>
+    </tr>
+    <tr>
+        <td>Asset Serial No</td>
+        <td>{{ item.asset_serialno }}</td>
+    </tr>
+    <tr>
+        <td>Issued Date</td>
+        <td>{{ item.issuedate }}</td>
+    </tr>
+    <tr>
+        <td>Access Type</td>
+        
+        <td>{{ item.accesstype }}</td>
+    </tr>
+    <tr>
+        <td>Manager</td>
+        <td>{{ item.manager_name }}</td>
+    </tr>
+
+    <tr>
+        <td>Assets</td>
+        <td>
+        {% if item.keyboard == 1  %}
+        <p><b>Keyboard</b>        Yes </p>
+        {% else %}
+        <p><b>Keyboard</b>        No </p>
+        {% endif %}
+
+        {% if item.mouse == 1  %}
+        <p><b>Mouse</b>        Yes </p>
+        {% else %}
+        <p><b>Mouse</b>        No </p>
+        {% endif %}
+
+        {% if item.headset == 1  %}
+        <p><b>Headset</b>        Yes </p>
+        {% else %}
+        <p><b>Headset</b>        No </p>
+        {% endif %}
+
+
+    </td>
+
+
+    
+
+</form>
+<br/>
+
+{% endfor %}
+</table>
+
+{% else %}
+No Assests available, Please enter assets
+{% endif %}
+
+</table>
+
+{% else %}
+No Username results for this query
+{% endif %}
+</div>
+
+</div>
+
+</body>
+</html>

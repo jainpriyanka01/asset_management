@@ -1,0 +1,113 @@
+{% load static %}
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Registeration</title>
+  <meta name='viewport' content = 'width=device-width',initial-scale=1>
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'navigation.css' %}">
+</head>
+
+<h1>Add Assets</h1>
+
+
+Welcome, {{username}}
+<ul>
+    
+  <li><a href="{% url 'home_view' %}">Home </a> <br/><br/></li>
+  {% if user.is_superuser %}    
+  <li><a href="{% url 'search_view' %}">Search </a> <br/><br/></li>
+  <li><a href="{% url 'approvals_view' %}"> Approval System</a> <br/></li>
+  {% endif %}
+  <li><a href="{% url 'add_assets_view' %}"> Add Asssets</a> <br/></li>
+  {% if user.is_authenticated %}
+  <li><a href="{% url 'logout_view' %}" style="float: right;">Logout</a></li>
+  {% else %}
+  <li><a href="{% url 'login_view' %}" style="float: right;">Login</a></li>
+  {% endif%}
+</ul>
+    <div class="form-style-10">
+   
+        <h1>Add New Asset </h1>
+    <form method ="POST" action="{% url 'add_assets_form_view' %}">
+        {% csrf_token %}
+        <!-- {{form.as_p}} -->
+        {% if superuser is True %}
+        
+          <label for="fname">First name: </span></label>
+          <input type="text" id="fname" name="fname" value="{{fname}}" ><br><br>
+          <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname" value="{{lname}}" ><br><br>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" value="{{email}}" ><br><br>
+          
+          {% else %}
+          
+          <label for="fname">First name: </span></label>
+          <input type="text" id="fname" name="fname" value="{{fname}}" readonly><br><br>
+          <!-- <p id="fname" name="fname" >{{fname}}</p><br><br> -->
+          <label for="lname">Last name:</label>
+          <input type="text" id="lname" name="lname"   value={{lname}} readonly><br><br>
+          <label for="email">Email:</label>
+          <input type="text" id="email" name="email" value={{email}} readonly><br><br>
+          {% endif %}
+        <label for="designation">Designation:</label>
+        <input type="text" id="designation" name="designation" required><br><br>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required><br><br>
+        <label for="assets">Asset:</label>
+          <select name="assets" required>
+            <option value="" disabled selected="true">Assets</option>
+            <option value ="laptop">Laptop</option>
+            <option value ="desktop">Desktop</option>
+            
+            </select><br><br>
+
+        
+        <input type="checkbox" id="assets1" name="assets1" value="keyboard">
+        <span style="width:100px;display:inline-block;">Keyboard</span>
+        <input type="checkbox" id="assets2" name="assets2" value="mouse" >
+        <span style="width:100px;display:inline-block;">Mouse</span>
+        <input type="checkbox" id="assets3" name="assets3" value="headset" >
+        <span style="width:100px;display:inline-block;">Headset</span><br>
+        
+            <br/>
+          <label for="asset_serialno">Asset Serial No:</label>
+        <input type="text" id="asset_serialno" name="asset_serialno"><br><br>
+
+        <label for="issuedate">Issued Date:</label>
+        <input type="date" id="issuedate" name="issuedate"><br><br>
+
+        <label for="accesstype">Access Type:</label>
+        <!-- <input type="text" id="accesstype" name="accesstype"><br><br> -->
+
+        <input type="checkbox" id="access1" name="access1" value="aws">
+        <span style="width:100px;display:inline-block;">AWS</span>
+
+        <input type="checkbox" id="access2" name="access2" value="livevox" >
+        <span style="width:100px;display:inline-block;">Livevox</span>
+
+        <input type="checkbox" id="access3" name="access3" value="dm" >
+        <span style="width:100px;display:inline-block;">DM</span><br>
+
+        <input type="checkbox" id="access4" name="access2" value="salesforce" >
+        <span style="width:100px;display:inline-block;">SalsesForce Chst</span>
+
+        <input type="checkbox" id="access5" name="access3" value="full" >
+        <span style="width:100px;display:inline-block;">Full Story</span><br>
+
+            <br/>
+        <label for="manager" >Manager Name:</label>
+        <input type="text" id="manager" name="manager" required><br><br>
+
+        <label for="manager_email" >Manager Email:</label>
+        <input type="text" id="manager_email" name="manager_email" required><br><br>
+
+          <input type="submit" value="ADD" />
+    </form>
+
+    
+
+</div>
+</html>

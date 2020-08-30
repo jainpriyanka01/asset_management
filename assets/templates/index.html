@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>DashBoard</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    </head>
+
+<body>
+    {% block content %}
+        <h1>Welcome Home, from Homepage</h1>
+
+        <a href = "{% url 'register_view' %}">Register</a> <br><br>
+        <a href = "{% url 'login_view' %}">Login</a>
+    {% endblock %}
+
+
+   
+</body>
+</html>
