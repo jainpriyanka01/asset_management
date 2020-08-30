@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2oa1&rft^i%wuzl2w(cdm!+f^&dv)wxh$nmoqxzg&h=h!awkv4'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,19 +88,7 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#       'ENGINE' : 'djongo',
-      
-#        'NAME' : 'admin',
-#        'CLIENT':{
-#        'host' : '34.72.139.18',
-#        'port':27017,
-#        'username' : 'archit',
-#        'password' : 'archit123',}
 
-#    }
-#    }
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -149,5 +137,5 @@ EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER='jainpriyanka9428@gmail.com'
-EMAIL_HOST_PASSWORD='iamlovingit:D'
+EMAIL_HOST_USER='xyz@gmail.com'
+EMAIL_HOST_PASSWORD=''
